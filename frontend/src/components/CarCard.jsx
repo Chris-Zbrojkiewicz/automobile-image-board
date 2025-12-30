@@ -10,57 +10,79 @@ const CarCard = ({ car }) => {
   const handleUpdateCar = async (id, updatedCar) => {
     const { success, message } = await updateCar(id, updatedCar);
     setIsOpen(false);
-    alert(success ? "Car updated successfully" : `Error: ${message}`);
+    if (!success) {
+      alert(`Error: ${message}`);
+    }
   };
 
   const handleDeleteCar = async (id) => {
     const { success, message } = await deleteCar(id);
-    alert(success ? message : `Error: ${message}`);
+    if (!success) {
+      alert(`Error: ${message}`);
+    }
   };
 
   return (
-    <div className="p-8 flex flex-col items-center bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transition-transform transform hover:-translate-y-1 hover:shadow-xl">
+    <div className="flex flex-col items-center bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl border border-gray-200 dark:border-gray-700">
       <img
         src={car.image}
-        alt={`${car.make} ${car.model} `}
-        className="h-60 object-cover  "
+        alt={`${car.make} ${car.model}`}
+        className="w-full h-64 object-cover"
       />
-      <div className="p-4">
-        <h3 className="text-lg font-bold text-gray-600 dark:text-gray-200 mb-2">
-          Make: {car.make}
-        </h3>
-        <h3 className="text-lg font-bold text-gray-600 dark:text-gray-200 mb-2">
-          Model: {car.model}
-        </h3>
-        <p className="text-lg font-semibold text-gray-600 dark:text-gray-200 mb-4">
-          Year: {car.year}
-        </p>
-        <p className="text-lg font-semibold text-gray-600 dark:text-gray-200 mb-4">
-          Engine: {car.engine} l
-        </p>
-        <div className="flex space-x-2">
+      <div className="p-6 w-full">
+        <div className="space-y-3 mb-6">
+          <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">
+            <span className="text-gray-500 dark:text-gray-400 font-normal">
+              Make:
+            </span>{" "}
+            {car.make}
+          </h3>
+          <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">
+            <span className="text-gray-500 dark:text-gray-400 font-normal">
+              Model:
+            </span>{" "}
+            {car.model}
+          </h3>
+          <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+            <span className="text-gray-500 dark:text-gray-400 font-normal">
+              Year:
+            </span>{" "}
+            {car.year}
+          </p>
+          <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+            <span className="text-gray-500 dark:text-gray-400 font-normal">
+              Engine:
+            </span>{" "}
+            {car.engine}L
+          </p>
+        </div>
+        <div className="flex space-x-3">
           <button
             onClick={() => setIsOpen(true)}
-            className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
             <FaRegEdit />
+            <span>Edit</span>
           </button>
           <button
             onClick={() => handleDeleteCar(car._id)}
-            className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
             <FaRegTrashAlt />
+            <span>Delete</span>
           </button>
         </div>
       </div>
 
       {isOpen && (
-        <div className="text-white fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-lg font-bold mb-4">Update Car Info</h2>
+        <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-60 dark:bg-opacity-70 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-2xl w-full max-w-md mx-4 border border-gray-200 dark:border-gray-700">
+            <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+              Update Car Info
+            </h2>
             <div className="space-y-4">
               <input
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors"
                 placeholder="Make"
                 name="make"
                 value={updatedCar.make}
@@ -69,7 +91,7 @@ const CarCard = ({ car }) => {
                 }
               />
               <input
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors"
                 placeholder="Model"
                 name="model"
                 value={updatedCar.model}
@@ -78,7 +100,7 @@ const CarCard = ({ car }) => {
                 }
               />
               <input
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors"
                 placeholder="Year"
                 name="year"
                 type="number"
@@ -91,7 +113,7 @@ const CarCard = ({ car }) => {
                 }
               />
               <input
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors"
                 placeholder="Engine"
                 name="engine"
                 type="number"
@@ -104,7 +126,7 @@ const CarCard = ({ car }) => {
                 }
               />
               <input
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors"
                 placeholder="Image URL"
                 name="image"
                 value={updatedCar.image}
@@ -116,18 +138,18 @@ const CarCard = ({ car }) => {
                 }
               />
             </div>
-            <div className="mt-4 flex justify-end space-x-2">
-              <button
-                onClick={() => handleUpdateCar(car._id, updatedCar)}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              >
-                Update
-              </button>
+            <div className="mt-6 flex justify-end space-x-3">
               <button
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-2 bg-gray-200 dark:bg-gray-600 rounded hover:bg-gray-300 dark:hover:bg-gray-500"
+                className="px-5 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 font-medium transition-colors duration-200"
               >
                 Cancel
+              </button>
+              <button
+                onClick={() => handleUpdateCar(car._id, updatedCar)}
+                className="px-5 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg"
+              >
+                Update
               </button>
             </div>
           </div>
