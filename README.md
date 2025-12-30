@@ -1,5 +1,7 @@
 # Automobile Image Board
 
+![Screenshot](/screenshot.png)
+
 A full-stack web application for managing and displaying automobile information with images. Users can view, create, update, and delete car entries in a modern, responsive interface.
 
 🌐 **Live Demo**: [HERE](https://automobile-image-board-pnoi.onrender.com/)
